@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.35431.46
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyenOtomatikYedekleme", "AsyenOtomatikYedekleme\AsyenOtomatikYedekleme.csproj", "{BBC1C205-5376-4862-A45A-B374ED06FDAA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VeriTabaniYedeklemeServis", "VeriTabaniYedeklemeServis\VeriTabaniYedeklemeServis.csproj", "{7EE213D5-DFFD-4581-903B-6F94E5CFC051}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "AsyenYedeklemeProgrami", "AsyenYedeklemeProgrami\AsyenYedeklemeProgrami.vdproj", "{06A9C8EE-6AFE-42D0-AEC4-453EC52DE10F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BBC1C205-5376-4862-A45A-B374ED06FDAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBC1C205-5376-4862-A45A-B374ED06FDAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBC1C205-5376-4862-A45A-B374ED06FDAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBC1C205-5376-4862-A45A-B374ED06FDAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7EE213D5-DFFD-4581-903B-6F94E5CFC051}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EE213D5-DFFD-4581-903B-6F94E5CFC051}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EE213D5-DFFD-4581-903B-6F94E5CFC051}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EE213D5-DFFD-4581-903B-6F94E5CFC051}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06A9C8EE-6AFE-42D0-AEC4-453EC52DE10F}.Debug|Any CPU.ActiveCfg = Debug
+		{06A9C8EE-6AFE-42D0-AEC4-453EC52DE10F}.Release|Any CPU.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0621DCE6-B0F6-44B3-A34E-29C55F9A5836}
+	EndGlobalSection
+EndGlobal
