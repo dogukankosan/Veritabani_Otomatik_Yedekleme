@@ -1,13 +1,14 @@
-﻿using AsyenOtomatikYedekleme.Forms;
+﻿using AsyenOtomatikYedekleme.Classes;
+using AsyenOtomatikYedekleme.Forms;
+using DevExpress.XtraEditors;
 using System;
 using System.Diagnostics;
-using System.Windows.Forms;
-using System.ServiceProcess;
-using System.Security.Principal;
+using System.IO;
 using System.Linq;
-using System.Xml.Linq;
-using DevExpress.XtraEditors;
-using AsyenOtomatikYedekleme.Classes;
+using System.Security.Principal;
+using System.ServiceProcess;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace AsyenOtomatikYedekleme
 {
@@ -15,133 +16,114 @@ namespace AsyenOtomatikYedekleme
     {
         [STAThread]
         static void Main()
-        {// Programın adıyla çalışan bir örneğin olup olmadığını kontrol ediyoruz
-            string processName = Process.GetCurrentProcess().ProcessName;
-            var runningProcesses = Process.GetProcessesByName(processName);
-            if (runningProcesses.Length > 1)
-            {
-                XtraMessageBox.Show("Program zaten açık!", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-            // Servisin kurulu olup olmadığını kontrol et
-            if (!IsServiceInstalled("Asyen Veritabani Yedekleme Servis"))
-            {
-                // Yönetici olarak çalıştırılıp çalıştırılmadığını kontrol et
-                if (!IsRunningAsAdministrator())
-                {
-                    MessageBox.Show("Yedekleme servisi kurulacaktır programı yönetici olarak açmanız gerekiyor!", "Yetki Hatası", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
-                }
-                else
-                {
-                    InstallService();
-                    ServiceStart();
-                }
-            }
+        {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new LoginForm());
+            RunAppAsync().GetAwaiter().GetResult();
         }
-        static bool IsServiceInstalled(string serviceName)
+        private static async Task RunAppAsync()
+        {
+            try
+            {
+                string processName = Process.GetCurrentProcess().ProcessName;
+                if (Process.GetProcessesByName(processName).Length > 1)
+                {
+                    XtraMessageBox.Show("Program zaten açık!", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+                string serviceName = "Asyen Veritabani Yedekleme Servis";
+                if (!IsServiceInstalled(serviceName))
+                {
+                    if (!IsRunningAsAdministrator())
+                    {
+                        MessageBox.Show("Yedekleme servisi kurulacaktır, programı yönetici olarak açmanız gerekiyor!",
+                            "Yetki Hatası", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+                    bool installed = await InstallServiceAsync();
+                    if (!installed)
+                    {
+                        XtraMessageBox.Show("Servis yüklenirken hata oluştu.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    StartService(serviceName);
+                }
+                Application.Run(new LoginForm());
+            }
+            catch (Exception ex)
+            {
+                TextLog.TextLogging("[Program Entry Error] " + ex);
+                XtraMessageBox.Show("Başlangıç sırasında bir hata oluştu:\n" + ex.Message, "Uygulama Hatası", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private static bool IsServiceInstalled(string serviceName)
         {
             return ServiceController.GetServices().Any(s => s.ServiceName == serviceName);
         }
-        // Programın yönetici olarak çalışıp çalışmadığını kontrol eden fonksiyon
-        static bool IsRunningAsAdministrator()
+        private static bool IsRunningAsAdministrator()
         {
-            WindowsIdentity identity = WindowsIdentity.GetCurrent();
-            WindowsPrincipal principal = new WindowsPrincipal(identity);
-            return principal.IsInRole(WindowsBuiltInRole.Administrator);
-        }
-        // Servisi kuran fonksiyon (örnek amaçlı; gerçek bir kurulum işlemi daha detaylı olacaktır)
-        static void InstallService()
-        {
-            // .net bu yolda kesin kurulu olması gerekiyor.
-            string installUtilPath = @"C:\Windows\Microsoft.NET\Framework64\v4.0.30319\InstallUtil.exe";
-            // servis klasörü burda olmalı
-            string serviceExePath = Application.StartupPath + "\\Servis";
-            if (string.IsNullOrWhiteSpace(serviceExePath))
+            using (WindowsIdentity identity = WindowsIdentity.GetCurrent())
             {
-                XtraMessageBox.Show("Geçerli Bir Servis Dizini Girmelisiniz.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                WindowsPrincipal principal = new WindowsPrincipal(identity);
+                return principal.IsInRole(WindowsBuiltInRole.Administrator);
             }
-            ProcessStartInfo startInfo = new ProcessStartInfo
+        }
+        private static async Task<bool> InstallServiceAsync()
+        {
+            try
             {
-                FileName = installUtilPath,
-                Arguments = $"\"{serviceExePath + "\\AsyenVeriTabaniYedeklemeServis.exe"}\"",
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                UseShellExecute = false,
-                CreateNoWindow = true
-            };
-            using (Process process = new Process())
-            {
-                process.StartInfo = startInfo;
-                process.Start();
-                string output = process.StandardOutput.ReadToEnd();
-                string error = process.StandardError.ReadToEnd();
-                process.WaitForExit();
-                if (process.ExitCode == 0 && string.IsNullOrEmpty(error))
+                string installUtilPath = @"C:\Windows\Microsoft.NET\Framework64\v4.0.30319\InstallUtil.exe";
+                string serviceExePath = Path.Combine(Application.StartupPath, "Servis", "AsyenVeriTabaniYedeklemeServis.exe");
+                if (!File.Exists(serviceExePath))
                 {
-                    var configFile = serviceExePath + "\\AsyenVeriTabaniYedeklemeServis.exe.config";
-                    XDocument configXml = XDocument.Load(configFile);
-                    var connectionStrings = configXml.Root.Element("connectionStrings");
-                    if (connectionStrings != null)
-                    {
-                        var connectionStringElement = connectionStrings.Elements("add").FirstOrDefault(x => x.Attribute("name").Value == "SQLiteConnectionString");
-                        if (connectionStringElement != null)
-                        {
-                            connectionStringElement.Attribute("connectionString").Value = SQLLiteConnection.connectionString;
-                            configXml.Save(configFile);
-                        }
-                        else
-                        {
-                            XtraMessageBox.Show("Connection String Bulunamadı.", "SQLITE Connection String Kaydedilemedi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            TextLog.TextLogging("Servis Confige ConnectionString Kaydedilemedi");
-                        }
-                    }
-                    else
-                    {
-                        XtraMessageBox.Show("ConnectionStrings Bölümü Bulunamadı.", "SQLITE Connection String Kaydedilemedi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        TextLog.TextLogging("Servis Confige ConnectionString Kaydedilemedi Yada Bulamadı");
-                    }
+                    XtraMessageBox.Show("Servis EXE dosyası bulunamadı:\n" + serviceExePath, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
                 }
-                else
-                    XtraMessageBox.Show($"Servis kaydedilemedi.\nHata: {error}\nÇıktı: {output}", "Servis Kaydı Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-        static void ServiceStart()
-        {
-            string serviceName = "Asyen Veritabani Yedekleme Servis";
-            using (Process process = new Process())
-            {
-                process.StartInfo = new ProcessStartInfo
+                ProcessStartInfo startInfo = new ProcessStartInfo
                 {
-                    FileName = "cmd.exe",
-                    Arguments = $"/c sc query \"{serviceName}\"",
+                    FileName = installUtilPath,
+                    Arguments = $"\"{serviceExePath}\"",
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
                     UseShellExecute = false,
                     CreateNoWindow = true
                 };
-                process.Start();
-                string output = process.StandardOutput.ReadToEnd();
-                string error = process.StandardError.ReadToEnd();
-                process.WaitForExit();
-                if (!output.Contains("RUNNING"))
+                using (Process process = Process.Start(startInfo))
                 {
-                    process.StartInfo.Arguments = $"/c net start \"{serviceName}\"";
-                    process.Start();
-                    output = process.StandardOutput.ReadToEnd();
-                    error = process.StandardError.ReadToEnd();
+                    string error = await process.StandardError.ReadToEndAsync();
                     process.WaitForExit();
-                    if (string.IsNullOrEmpty(error))
-                        return;
-                    else
-                        XtraMessageBox.Show($"Servis Başlatılamadı.\nHata: {error}", "Servis Başlatma Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    if (!string.IsNullOrWhiteSpace(error))
+                        TextLog.TextLogging("InstallUtil Error: " + error);
+                    return process.ExitCode == 0;
                 }
-                else
-                    XtraMessageBox.Show("Servis Zaten Çalışıyor.", "Servis Durumu Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                TextLog.TextLogging("[InstallServiceAsync] " + ex);
+                return false;
+            }
+        }
+        private static void StartService(string serviceName)
+        {
+            try
+            {
+                using (ServiceController sc = new ServiceController(serviceName))
+                {
+                    if (sc.Status != ServiceControllerStatus.Running)
+                    {
+                        sc.Start();
+                        sc.WaitForStatus(ServiceControllerStatus.Running, TimeSpan.FromSeconds(15));
+                    }
+                    else
+                    {
+                        XtraMessageBox.Show("Servis zaten çalışıyor.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TextLog.TextLogging("[StartService] " + ex);
+                XtraMessageBox.Show("Servis başlatılamadı:\n" + ex.Message, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

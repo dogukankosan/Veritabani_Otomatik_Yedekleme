@@ -123,8 +123,8 @@ C:\Users\DOGUKAN\source\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\obj\
 C:\Users\DOGUKAN\source\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\obj\Debug\AsyenOtomatikYedekleme.pdb
 C:\Users\DOGUKAN\source\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\AsyenOtomatikYedekleme.pdb
 C:\Users\DOGUKAN\source\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\obj\Debug\AsyenOtomatikYedekleme.csproj.AssemblyReference.cache
-D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\System.Data.SQLite.dll
 D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\AsyenYedekleme.exe
+D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\System.Data.SQLite.dll
 D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\AsyenYedekleme.exe.config
 D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\AsyenYedekleme.pdb
 D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\DevExpress.BonusSkins.v20.1.dll
@@ -232,6 +232,7 @@ D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\de\DevExpress.O
 D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\es\DevExpress.Office.v20.1.Core.resources.dll
 D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\ja\DevExpress.Office.v20.1.Core.resources.dll
 D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\ru\DevExpress.Office.v20.1.Core.resources.dll
+D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\obj\Debug\AsyenOtomatikYedekleme.csprojAssemblyReference.cache
 D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\obj\Debug\AsyenOtomatikYedekleme.Forms.AboutForm.resources
 D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\obj\Debug\AsyenOtomatikYedekleme.Forms.BackUpSettingsForms.resources
 D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\obj\Debug\AsyenOtomatikYedekleme.Forms.ConnectionForm.resources
@@ -246,4 +247,3 @@ D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\obj\Debug\AsyenOtomatikYe
 D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\obj\Debug\AsyenOtomatikYedekleme.csproj.CopyComplete
 D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\obj\Debug\AsyenYedekleme.exe
 D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\obj\Debug\AsyenYedekleme.pdb
-D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\obj\Debug\AsyenOtomatikYedekleme.csprojAssemblyReference.cache

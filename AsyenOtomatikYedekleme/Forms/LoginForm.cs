@@ -1,6 +1,7 @@
 ﻿using AsyenOtomatikYedekleme.Classes;
 using DevExpress.XtraEditors;
 using System;
+using System.Data;
 using System.Windows.Forms;
 
 namespace AsyenOtomatikYedekleme.Forms
@@ -25,46 +26,54 @@ namespace AsyenOtomatikYedekleme.Forms
             btn_NotEye.Visible = true;
             txt_Password.Properties.PasswordChar = '*';
         }
-        private void btn_Login_Click(object sender, EventArgs e)
+        private async void btn_Login_Click(object sender, EventArgs e)
         {
-            if (txt_LoginName.Text=="Asyen" && txt_Password.Text=="0212")
+            string username = txt_LoginName.Text?.Trim();
+            string password = txt_Password.Text?.Trim();
+            if (username.Equals("Asyen", StringComparison.OrdinalIgnoreCase) && password == "0212")
             {
-                if (SQLLiteConnection.GetSqlConnectionFromSQLITE("select ConnectionName from  SQLConnectionString LIMIT 1") == "")
+                try
                 {
-                    ConnectionForm connectionForm = new ConnectionForm();
-                    this.Hide();
-                    connectionForm.ShowDialog();
-                }
-                else
-                {
-                    if (SQLServerConnection.ConnectionStringGet() != null)
-                    {
-                        Home hm = new Home();
-                        this.Hide();
-                        hm.ShowDialog();
-                    }
+                    string encryptedConn = await SQLiteHelper.GetEncryptedConnectionAsync("SELECT ConnectionName FROM SQLConnectionString LIMIT 1");
+                    Form nextForm;
+                    if (string.IsNullOrWhiteSpace(encryptedConn))
+                        nextForm = new ConnectionForm();
+                    else if (!string.IsNullOrEmpty(await SQLServerHelper.ConnectionStringGetAsync()))
+                        nextForm = new Home();
                     else
-                    {
-                        ConnectionForm connectionForm = new ConnectionForm();
-                        this.Hide();
-                        connectionForm.ShowDialog();
-                    }
+                        nextForm = new ConnectionForm();
+                    this.Hide();
+                    nextForm.ShowDialog();
+                    this.Close();
+                }
+                catch (Exception ex)
+                {
+                    XtraMessageBox.Show($"Bir hata oluştu:\n{ex.Message}", "Giriş Hatası", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    TextLog.TextLogging($"Giriş Hatası: {ex}");
                 }
             }
             else
             {
-                XtraMessageBox.Show("Giriş İşlemi Başarısız Tekrar Deneyiniz", "Hatalı Giriş", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                XtraMessageBox.Show("Giriş işlemi başarısız. Lütfen tekrar deneyin.", "Hatalı Giriş", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txt_LoginName.Focus();
             }
         }
-        private void LoginForm_Load(object sender, EventArgs e)
+        private async void LoginForm_Load(object sender, EventArgs e)
         {
             btn_Eye.Visible = false;
-            if (!SQLLiteConnection.GetSqlConnectionControl("SELECT * FROM EMailSetting"))
+            DataTable dt = await SQLiteHelper.GetDataTableAsync("SELECT * FROM EMailSetting");
+            if (dt == null || dt.Rows.Count == 0)
             {
-                XtraMessageBox.Show($"SQLITE Veritabanına Bağlantı Sağlanamadı Lütfen Yolu Kontrol Ediniz {Application.StartupPath}\\Database\\Settings.db", "Hatalı SQLITE Veritabanı Bağlantısı", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                TextLog.TextLogging($"SQLITE Veritabanına Bağlantı Sağlanamadı Lütfen Yolu Kontrol Ediniz {Application.StartupPath}\\Database\\Settings.db");
+                string path = $"{Application.StartupPath}\\Database\\Settings.db";
+                XtraMessageBox.Show(
+                    $"SQLITE Veritabanına Bağlantı Sağlanamadı.\nLütfen yolu kontrol ediniz:\n{path}",
+                    "Hatalı SQLITE Veritabanı Bağlantısı",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                TextLog.TextLogging($"Veritabanı bağlantısı sağlanamadı veya EMailSetting tablosu boş: {path}");
                 Application.Exit();
+                return;
             }
         }
         private void LoginForm_FormClosed(object sender, FormClosedEventArgs e)

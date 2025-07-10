@@ -7,7 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyenOtomatikYedekleme", "A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VeriTabaniYedeklemeServis", "VeriTabaniYedeklemeServis\VeriTabaniYedeklemeServis.csproj", "{7EE213D5-DFFD-4581-903B-6F94E5CFC051}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "AsyenYedeklemeProgrami", "AsyenYedeklemeProgrami\AsyenYedeklemeProgrami.vdproj", "{06A9C8EE-6AFE-42D0-AEC4-453EC52DE10F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyenServiceListen", "AsyenServiceListen\AsyenServiceListen.csproj", "{46FE16C6-2A5A-4EDC-A357-91B7086BBDC3}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "AsyenYedeklemeProgrami", "AsyenYedeklemeProgrami\AsyenYedeklemeProgrami.vdproj", "{363B8F27-D634-4819-826C-A1E54F768A46}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,8 +25,12 @@ Global
 		{7EE213D5-DFFD-4581-903B-6F94E5CFC051}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7EE213D5-DFFD-4581-903B-6F94E5CFC051}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7EE213D5-DFFD-4581-903B-6F94E5CFC051}.Release|Any CPU.Build.0 = Release|Any CPU
-		{06A9C8EE-6AFE-42D0-AEC4-453EC52DE10F}.Debug|Any CPU.ActiveCfg = Debug
-		{06A9C8EE-6AFE-42D0-AEC4-453EC52DE10F}.Release|Any CPU.ActiveCfg = Release
+		{46FE16C6-2A5A-4EDC-A357-91B7086BBDC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46FE16C6-2A5A-4EDC-A357-91B7086BBDC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46FE16C6-2A5A-4EDC-A357-91B7086BBDC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46FE16C6-2A5A-4EDC-A357-91B7086BBDC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{363B8F27-D634-4819-826C-A1E54F768A46}.Debug|Any CPU.ActiveCfg = Debug
+		{363B8F27-D634-4819-826C-A1E54F768A46}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

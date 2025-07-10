@@ -56,6 +56,8 @@ namespace AsyenOtomatikYedekleme.Forms
             this.btn_WinrarFolder = new DevExpress.XtraEditors.SimpleButton();
             this.txt_recipientEmail = new DevExpress.XtraEditors.TextEdit();
             this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txt_Company = new DevExpress.XtraEditors.TextEdit();
             ((System.ComponentModel.ISupportInitialize)(this.timeEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
@@ -63,6 +65,7 @@ namespace AsyenOtomatikYedekleme.Forms
             ((System.ComponentModel.ISupportInitialize)(this.txt_WinrarPassword.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txt_WinrarFolder.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txt_recipientEmail.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txt_Company.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // timeEdit1
@@ -172,7 +175,7 @@ namespace AsyenOtomatikYedekleme.Forms
             this.groupControl1.Controls.Add(this.chk_Saturday);
             this.groupControl1.Controls.Add(this.chk_Thursday);
             this.groupControl1.Controls.Add(this.chk_Friday);
-            this.groupControl1.Location = new System.Drawing.Point(17, 188);
+            this.groupControl1.Location = new System.Drawing.Point(17, 224);
             this.groupControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupControl1.Name = "groupControl1";
             this.groupControl1.Size = new System.Drawing.Size(332, 126);
@@ -199,11 +202,11 @@ namespace AsyenOtomatikYedekleme.Forms
             this.btn_Save.Appearance.Options.UseFont = true;
             this.btn_Save.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_Save.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btn_Save.ImageOptions.Image")));
-            this.btn_Save.Location = new System.Drawing.Point(17, 407);
+            this.btn_Save.Location = new System.Drawing.Point(12, 407);
             this.btn_Save.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btn_Save.Name = "btn_Save";
             this.btn_Save.Size = new System.Drawing.Size(194, 48);
-            this.btn_Save.TabIndex = 6;
+            this.btn_Save.TabIndex = 7;
             this.btn_Save.Text = "Kaydet";
             this.btn_Save.Click += new System.EventHandler(this.btn_Save_Click);
             // 
@@ -293,11 +296,11 @@ namespace AsyenOtomatikYedekleme.Forms
             // chk_BackDelete
             // 
             this.chk_BackDelete.AutoSize = true;
-            this.chk_BackDelete.Location = new System.Drawing.Point(17, 331);
+            this.chk_BackDelete.Location = new System.Drawing.Point(17, 367);
             this.chk_BackDelete.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chk_BackDelete.Name = "chk_BackDelete";
             this.chk_BackDelete.Size = new System.Drawing.Size(267, 21);
-            this.chk_BackDelete.TabIndex = 5;
+            this.chk_BackDelete.TabIndex = 6;
             this.chk_BackDelete.Text = "Yedekleme Sonrası Eski Yedekler Silinsin";
             this.chk_BackDelete.UseVisualStyleBackColor = true;
             // 
@@ -313,7 +316,7 @@ namespace AsyenOtomatikYedekleme.Forms
             this.btn_Exit.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btn_Exit.Name = "btn_Exit";
             this.btn_Exit.Size = new System.Drawing.Size(194, 48);
-            this.btn_Exit.TabIndex = 7;
+            this.btn_Exit.TabIndex = 8;
             this.btn_Exit.Text = "Vazgeç";
             this.btn_Exit.Click += new System.EventHandler(this.btn_Exit_Click);
             // 
@@ -359,6 +362,24 @@ namespace AsyenOtomatikYedekleme.Forms
             this.label5.TabIndex = 27;
             this.label5.Text = "Mail Kime Gönderilecek:";
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(14, 189);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(69, 17);
+            this.label6.TabIndex = 29;
+            this.label6.Text = "Şirket Adı:";
+            // 
+            // txt_Company
+            // 
+            this.txt_Company.Location = new System.Drawing.Point(186, 188);
+            this.txt_Company.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txt_Company.Name = "txt_Company";
+            this.txt_Company.Properties.MaxLength = 50;
+            this.txt_Company.Size = new System.Drawing.Size(163, 22);
+            this.txt_Company.TabIndex = 5;
+            // 
             // BackUpSettingsForms
             // 
             this.AcceptButton = this.btn_Save;
@@ -366,6 +387,8 @@ namespace AsyenOtomatikYedekleme.Forms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(434, 470);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.txt_Company);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.txt_recipientEmail);
             this.Controls.Add(this.btn_WinrarFolder);
@@ -399,6 +422,7 @@ namespace AsyenOtomatikYedekleme.Forms
             ((System.ComponentModel.ISupportInitialize)(this.txt_WinrarPassword.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txt_WinrarFolder.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txt_recipientEmail.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txt_Company.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -432,5 +456,7 @@ namespace AsyenOtomatikYedekleme.Forms
         private DevExpress.XtraEditors.SimpleButton btn_WinrarFolder;
         private DevExpress.XtraEditors.TextEdit txt_recipientEmail;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private DevExpress.XtraEditors.TextEdit txt_Company;
     }
 }

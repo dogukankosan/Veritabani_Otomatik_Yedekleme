@@ -110,8 +110,8 @@
     <Compile Include="Classes\BackUp.cs" />
     <Compile Include="Classes\EMailSenderManager.cs" />
     <Compile Include="Classes\EncryptionHelper.cs" />
-    <Compile Include="Classes\SQLServerConnection.cs" />
-    <Compile Include="Classes\SQLLiteConnection.cs" />
+    <Compile Include="Classes\SQLServerHelper.cs" />
+    <Compile Include="Classes\SQLiteHelper.cs" />
     <Compile Include="Classes\TextLog.cs" />
     <Compile Include="Classes\WinrarManager.cs" />
     <Compile Include="Forms\AboutForm.cs">

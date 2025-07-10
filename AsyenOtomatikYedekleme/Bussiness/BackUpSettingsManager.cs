@@ -7,7 +7,7 @@ namespace AsyenOtomatikYedekleme.Bussiness
 {
     internal class BackUpSettingsManager
     {
-        public static bool BackUpSettingControl(TextEdit folderBackup, TextEdit winrarFolder)
+        public static bool BackUpSettingControl(TextEdit folderBackup, TextEdit winrarFolder,TextEdit companyName)
         {
             #region FolderBackUpControl
             if (string.IsNullOrEmpty(folderBackup.Text))
@@ -44,6 +44,12 @@ namespace AsyenOtomatikYedekleme.Bussiness
             {
                 XtraMessageBox.Show("Yedek Alma Klasöründe E:\\ D:\\ E:\\ F:\\ G:\\ Karakteri İle Başlamalıdır", "Hatalı Yedekleme Girişi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 folderBackup.Focus();
+                return false;
+            }
+            else if (string.IsNullOrEmpty(companyName.Text))
+            {
+                XtraMessageBox.Show("Firma Adı Boş Geçilemez", "Hatalı Yedekleme Firma adı Girişi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                companyName.Focus();
                 return false;
             }
             else

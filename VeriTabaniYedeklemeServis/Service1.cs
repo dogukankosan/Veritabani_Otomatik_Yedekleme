@@ -15,39 +15,64 @@ namespace VeriTabaniYedeklemeServis
         {
             InitializeComponent();
         }
-
         protected override void OnStart(string[] args)
         {
-            if (_timer == null)
+            _timer = new Timer
             {
-                _timer = new Timer();
-            }
-            _timer.Interval = 60_000;
+                Interval = 60_000,
+                AutoReset = false 
+            };
             _timer.Elapsed += TimerElapsed;
             _timer.Start();
         }
-        private void TimerElapsed(object sender, ElapsedEventArgs e)
+        private async void TimerElapsed(object sender, ElapsedEventArgs e)
         {
             _timer.Stop();
-            string currentDay = DateTime.Now.ToString("dddd", new CultureInfo("tr-TR"));
-            string currentTime = DateTime.Now.ToString("HH:mm");
-            DataTable scheduleTable = SQLLiteConnection.GetDataFromSQLite("SELECT Days, BackUpTime FROM DbBackUpSettings LIMIT 1");
-            foreach (DataRow row in scheduleTable.Rows)
+            try
             {
-                string[] backupDay = row["Days"].ToString().Split(',');
-                string backupTime = row["BackUpTime"].ToString().Substring(0, 5); ;
-                for (byte i = 0; i < backupDay.Length; i++)
+                string currentDay = DateTime.Now.ToString("dddd", new CultureInfo("tr-TR"));
+                string currentTime = DateTime.Now.ToString("HH:mm");
+                DataTable scheduleTable =
+                    await SQLiteHelper.GetDataTableAsync("SELECT Days, BackUpTime FROM DbBackUpSettings LIMIT 1");
+                if (scheduleTable.Rows.Count == 0 || string.IsNullOrEmpty(scheduleTable.Rows[0][0]?.ToString()) || string.IsNullOrEmpty(scheduleTable.Rows[0][1]?.ToString()))
                 {
-                    if (backupDay[i]==currentDay && backupTime == currentTime)
+                    TextLog.TextLogging("Zamanlama verisi bulunamadı.", "Uyarı");
+                    return;
+                }
+                foreach (DataRow row in scheduleTable.Rows)
+                {
+                    if (row["Days"] is DBNull || row["BackUpTime"] is DBNull)
+                        return;
+                    string[] backupDays = row["Days"].ToString().Split(',');
+                    string backupTime = DateTime.Parse(row["BackUpTime"].ToString()).ToString("HH:mm");
+                    foreach (string day in backupDays)
                     {
-                        _ = BackUp.BackupDatabasesToSqlServerServiceAsync(
-                            SQLLiteConnection.GetDataFromSQLite("SELECT DbName FROM DbNameBackup"),
-                            SQLServerConnection.ConnectionStringGet());
-                        break;
+                        if (day.Trim().Equals(currentDay, StringComparison.OrdinalIgnoreCase) &&
+                            backupTime == currentTime)
+                        {
+                            try
+                            {
+                                await BackUp.BackupDatabasesToSqlServerServiceAsync(
+                                    await SQLiteHelper.GetDataTableAsync("SELECT DbName FROM DbNameBackup"),
+                                    await SQLServerConnection.ConnectionStringGet());
+                            }
+                            catch (Exception backupEx)
+                            {
+                                TextLog.TextLogging("Yedekleme sırasında hata: " + backupEx, "Hatalı");
+                            }
+                            break;
+                        }
                     }
                 }
             }
-            _timer.Start();
+            catch (Exception ex)
+            {
+                TextLog.TextLogging("Zamanlayıcı genel hata: " + ex, "Hata");
+            }
+            finally
+            {
+                _timer.Start();
+            }
         }
         protected override void OnStop()
         {

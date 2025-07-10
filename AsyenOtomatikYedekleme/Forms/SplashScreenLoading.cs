@@ -10,9 +10,10 @@ namespace AsyenOtomatikYedekleme.Forms
             InitializeComponent();
         }
         public string status = "";
+        public bool IScancel = false;
         private void SplashScreenLoading_Load(object sender, EventArgs e)
         {
-            labelCopyright.Text = $"Copyright© {DateTime.Now.Year} Asyen Bilişim Teknolojileri Ltd.Şti., Tüm Hakları Saklıdır V3.1";
+            labelCopyright.Text = $"Copyright© {DateTime.Now.Year} Asyen Bilişim Teknolojileri Ltd.Şti., Tüm Hakları Saklıdır V3.2";
         }
         private void SplashScreenLoading_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -23,6 +24,14 @@ namespace AsyenOtomatikYedekleme.Forms
         private void timer1_Tick(object sender, EventArgs e)
         {
             lbl_Status.Text=status;
+        }
+        private void btn_Cancel_Click(object sender, EventArgs e)
+        {
+            IScancel = true;
+        }
+        private void btn_Cancel_MouseHover(object sender, EventArgs e)
+        {
+            toolTip1.SetToolTip(btn_Cancel,"Yedeklemeyi iptal et");
         }
     }
 }

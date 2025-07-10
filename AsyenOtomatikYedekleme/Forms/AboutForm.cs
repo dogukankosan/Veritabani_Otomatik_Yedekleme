@@ -20,5 +20,9 @@ namespace AsyenOtomatikYedekleme.Forms
         {
             toolTip1.SetToolTip(pictureBox1, "Asyen Web Sitesine Git");
         }
+        private void AboutForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

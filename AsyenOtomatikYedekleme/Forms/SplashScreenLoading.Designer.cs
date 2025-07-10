@@ -37,6 +37,8 @@ namespace AsyenOtomatikYedekleme.Forms
             this.progressBarControl = new DevExpress.XtraEditors.MarqueeProgressBarControl();
             this.lbl_Status = new DevExpress.XtraEditors.LabelControl();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.btn_Cancel = new DevExpress.XtraEditors.SimpleButton();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.peImage.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.progressBarControl.Properties)).BeginInit();
             this.SuspendLayout();
@@ -96,11 +98,24 @@ namespace AsyenOtomatikYedekleme.Forms
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // btn_Cancel
+            // 
+            this.btn_Cancel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_Cancel.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btn_Cancel.ImageOptions.Image")));
+            this.btn_Cancel.Location = new System.Drawing.Point(554, 12);
+            this.btn_Cancel.Name = "btn_Cancel";
+            this.btn_Cancel.PaintStyle = DevExpress.XtraEditors.Controls.PaintStyles.Light;
+            this.btn_Cancel.Size = new System.Drawing.Size(40, 35);
+            this.btn_Cancel.TabIndex = 16;
+            this.btn_Cancel.Click += new System.EventHandler(this.btn_Cancel_Click);
+            this.btn_Cancel.MouseHover += new System.EventHandler(this.btn_Cancel_MouseHover);
+            // 
             // SplashScreenLoading
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(606, 419);
+            this.Controls.Add(this.btn_Cancel);
             this.Controls.Add(this.lbl_Status);
             this.Controls.Add(this.peImage);
             this.Controls.Add(this.labelStatus);
@@ -131,5 +146,7 @@ namespace AsyenOtomatikYedekleme.Forms
         private DevExpress.XtraEditors.MarqueeProgressBarControl progressBarControl;
         private DevExpress.XtraEditors.LabelControl lbl_Status;
         private System.Windows.Forms.Timer timer1;
+        private DevExpress.XtraEditors.SimpleButton btn_Cancel;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

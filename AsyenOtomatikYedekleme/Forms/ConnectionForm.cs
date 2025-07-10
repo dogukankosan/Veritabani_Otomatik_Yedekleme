@@ -2,6 +2,7 @@
 using AsyenYedekleme.Classes;
 using DevExpress.XtraEditors;
 using System;
+using System.Data.SQLite;
 using System.Windows.Forms;
 
 namespace AsyenOtomatikYedekleme.Forms
@@ -12,23 +13,47 @@ namespace AsyenOtomatikYedekleme.Forms
         {
             InitializeComponent();
         }
-        private void btn_Save_Click(object sender, EventArgs e)
+        private async void btn_Save_Click(object sender, EventArgs e)
         {
-            string message = SQLServerConnection.ConnectionStringControl(txt_ServerName.Text, txt_LoginName.Text, txt_Password.Text);
-            if (message == "Başarılı")
+            try
             {
-                if (SQLLiteConnection.GetSqlConnectionFromSQLITE("select ConnectionName from  SQLConnectionString LIMIT 1") == "")
-                    SQLLiteConnection.InserUpdateDelete($"INSERT INTO  SQLConnectionString (ConnectionName) VALUES ('{ EncryptionHelper.Encrypt(SQLServerConnection.ConnectionStringAdd)}') ");
+                string message = await SQLServerHelper.ConnectionStringControlAsync(
+                    txt_ServerName.Text.Trim(),
+                    txt_LoginName.Text.Trim(),
+                    txt_Password.Text,
+                    nmr_Port.Value
+                );
+
+                if (message == "Başarılı")
+                {
+                    string encryptedConnection = EncryptionHelper.Encrypt(SQLServerHelper.ConnectionStringAdd);
+                    string existing = await SQLiteHelper.GetScalarAsync("SELECT ConnectionName FROM SQLConnectionString LIMIT 1");
+                    if (string.IsNullOrWhiteSpace(existing))
+                    {
+                        await SQLiteHelper.ExecuteNonQueryAsync("INSERT INTO SQLConnectionString (ConnectionName) VALUES (@conn)",
+                            new SQLiteParameter("@conn", encryptedConnection));
+                    }
+                    else
+                    {
+                        await SQLiteHelper.ExecuteNonQueryAsync("UPDATE SQLConnectionString SET ConnectionName = @conn",
+                            new SQLiteParameter("@conn", encryptedConnection));
+                    }
+                    Hide();
+                    using (Home home = new Home())
+                    {
+                        home.ShowDialog();
+                    }
+                }
                 else
-                    SQLLiteConnection.InserUpdateDelete($"UPDATE SQLConnectionString SET ConnectionName='"+ EncryptionHelper.Encrypt(SQLServerConnection.ConnectionStringAdd) + "'");
-                this.Hide();
-                Home hm = new Home();
-                hm.ShowDialog();
+                {
+                    XtraMessageBox.Show("Veritabanı bağlantısı hatalı, lütfen tekrar deneyiniz.", "Bağlantı Hatası", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txt_ServerName.Focus();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                XtraMessageBox.Show("Veritabanı Bağlantısı Hatalı Tekrar Deneyiniz", "Hatalı Bağlantı", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txt_ServerName.Focus();
+                TextLog.TextLogging($"[btn_Save_Click] {ex}");
+                XtraMessageBox.Show("Beklenmedik bir hata oluştu. Detaylar log dosyasına yazıldı.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void btn_NotEye_Click(object sender, EventArgs e)

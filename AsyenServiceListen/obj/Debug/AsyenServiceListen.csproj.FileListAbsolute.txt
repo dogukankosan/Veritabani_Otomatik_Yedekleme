@@ -1,0 +1,8 @@
+D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\ListenService\AsyenServiceListen.exe.config
+D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\ListenService\AsyenServiceListen.exe
+D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\ListenService\AsyenServiceListen.pdb
+D:\repos\AsyenOtomatikYedekleme\AsyenServiceListen\obj\Debug\AsyenServiceListen.csproj.CoreCompileInputs.cache
+D:\repos\AsyenOtomatikYedekleme\AsyenServiceListen\obj\Debug\AsyenServiceListen.csproj.CopyComplete
+D:\repos\AsyenOtomatikYedekleme\AsyenServiceListen\obj\Debug\AsyenServiceListen.exe
+D:\repos\AsyenOtomatikYedekleme\AsyenServiceListen\obj\Debug\AsyenServiceListen.pdb
+D:\repos\AsyenOtomatikYedekleme\AsyenServiceListen\obj\Debug\AsyenServiceListen.csprojAssemblyReference.cache

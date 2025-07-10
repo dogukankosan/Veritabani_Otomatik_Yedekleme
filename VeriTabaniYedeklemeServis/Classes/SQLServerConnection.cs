@@ -1,25 +1,33 @@
 ﻿using System;
 using System.Data.SqlClient;
+using System.Threading.Tasks;
 
 namespace VeriTabaniYedeklemeServis.Classes
 {
-    internal class SQLServerConnection
+    internal static class SQLServerConnection
     {
-        internal static string ConnectionStringGet()
+        internal  static async Task<string>ConnectionStringGet()
         {
-            string connectionString = SQLLiteConnection.GetSqlConnectionFromSQLITE();
-            SqlConnection sqLConnection = new SqlConnection(connectionString);
             try
             {
-                sqLConnection.Open();
+                string connectionString = await SQLiteHelper.GetEncryptedConnectionAsync();
+                if (string.IsNullOrWhiteSpace(connectionString))
+                {
+                    TextLog.TextLogging("SQLite bağlantı bilgisinden geçerli bir bağlantı cümlesi elde edilemedi.");
+                    return null;
+                }
+                using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+                {
+                   await sqlConnection.OpenAsync(); 
+                    sqlConnection.Close();
+                }
+                return connectionString;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                TextLog.TextLogging(e.Message, "Hatalı");
+                TextLog.TextLogging($"[ConnectionStringGet] SQL Server bağlantısı kurulamadı: {ex}");
                 return null;
             }
-            sqLConnection.Close();
-            return connectionString;
         }
     }
 }

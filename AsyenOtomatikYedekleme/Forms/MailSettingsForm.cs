@@ -15,13 +15,13 @@ namespace AsyenOtomatikYedekleme.Forms
             InitializeComponent();
         }
         private bool status = false;
-        private void btn_Update_Click(object sender, EventArgs e)
+        private async void btn_Update_Click(object sender, EventArgs e)
         {
             //if (EMailManager.EmailControl(txt_Email, txt_recipientEmail, txt_Password, txt_Server, txt_Port))
            // {
                 if (status == true)
                 {
-                    string message = SQLLiteConnection.InserUpdateDelete("UPDATE EMailSetting SET EMail='" + txt_Email.Text + "',RecipientEmail='"+txt_recipientEmail.Text+"',Password='" + EncryptionHelper.Encrypt(txt_Password.Text) + "',Server='" + txt_Server.Text + "', Port='" + txt_Port.Text + "',SSL=" + chk_SSL.Checked + "");
+                    string message = await SQLiteHelper.ExecuteNonQueryAsync("UPDATE EMailSetting SET EMail='" + txt_Email.Text + "',RecipientEmail='"+txt_recipientEmail.Text+"',Password='" + EncryptionHelper.Encrypt(txt_Password.Text) + "',Server='" + txt_Server.Text + "', Port='" + txt_Port.Text + "',SSL=" + chk_SSL.Checked + "");
                     if (message == "Başarılı")
                         XtraMessageBox.Show("Mail Güncelleme İşlemi Başarılı", "Başarılı Güncelleme İşlemi", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     else
@@ -32,7 +32,7 @@ namespace AsyenOtomatikYedekleme.Forms
                 }
                 else
                 {
-                    string message=SQLLiteConnection.InserUpdateDelete("INSERT INTO EMailSetting (EMail,RecipientEmail,Password,Server,Port,SSL) VALUES ('" + txt_Email.Text + "','"+txt_recipientEmail.Text+"','" + EncryptionHelper.Encrypt(txt_Password.Text) + "','" + txt_Server.Text + "','" + txt_Port.Text + "'," + (chk_SSL.Checked == true ? 1 : 0) + ")");
+                    string message= await SQLiteHelper.ExecuteNonQueryAsync("INSERT INTO EMailSetting (EMail,RecipientEmail,Password,Server,Port,SSL) VALUES ('" + txt_Email.Text + "','"+txt_recipientEmail.Text+"','" + EncryptionHelper.Encrypt(txt_Password.Text) + "','" + txt_Server.Text + "','" + txt_Port.Text + "'," + (chk_SSL.Checked == true ? 1 : 0) + ")");
                     if (message=="Başarılı")
                         XtraMessageBox.Show("Mail Ekleme İşlemi Başarılı","Başarılı Ekleme İşlemi",MessageBoxButtons.OK,MessageBoxIcon.Information);
                     else
@@ -44,7 +44,7 @@ namespace AsyenOtomatikYedekleme.Forms
                 }
            // }
         }
-        private void MailSettingsForm_Load(object sender, EventArgs e)
+        private async void MailSettingsForm_Load(object sender, EventArgs e)
         {
            txt_Port.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
             txt_Port.Properties.Mask.EditMask = "d";
@@ -52,7 +52,7 @@ namespace AsyenOtomatikYedekleme.Forms
             btn_NotEye.Visible = false;
             try
             {
-                DataTable table = SQLLiteConnection.GetDataFromSQLite("SELECT EMail,RecipientEmail,Password,Server,Port,SSL FROM EMailSetting LIMIT 1");
+                DataTable table = await SQLiteHelper.GetDataTableAsync("SELECT EMail,RecipientEmail,Password,Server,Port,SSL FROM EMailSetting LIMIT 1");
                 if (table.Rows.Count > 0)
                 {
                     txt_Email.Text = table.Rows[0][0].ToString();

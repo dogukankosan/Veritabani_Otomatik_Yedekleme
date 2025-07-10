@@ -362,3 +362,185 @@ Etkilenen parametreler şunlardır:
    logtoconsole = 
    assemblypath = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe
    logfile = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.InstallLog
+'D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe' derlemesi yükleniyor.
+Etkilenen parametreler şunlardır:
+   logtoconsole = 
+   assemblypath = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe
+   logfile = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.InstallLog
+Asyen Veritabani Yedekleme Servis hizmeti yükleniyor...
+Asyen Veritabani Yedekleme Servis hizmeti başarıyla yüklendi.
+Application günlüğünde Asyen Veritabani Yedekleme Servis EventLog kaynağı oluşturuluyor...
+'D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe' derlemesi tamamlanıyor.
+Etkilenen parametreler şunlardır:
+   logtoconsole = 
+   assemblypath = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe
+   logfile = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.InstallLog
+Installing assembly 'D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe
+   logfile = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.InstallLog
+Installing service Asyen Veritabani Yedekleme Servis...
+Service Asyen Veritabani Yedekleme Servis has been successfully installed.
+Creating EventLog source Asyen Veritabani Yedekleme Servis in log Application...
+Committing assembly 'D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe
+   logfile = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.InstallLog
+Installing assembly 'D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe
+   logfile = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.InstallLog
+Installing service Asyen Veritabani Yedekleme Servis...
+Service Asyen Veritabani Yedekleme Servis has been successfully installed.
+Creating EventLog source Asyen Veritabani Yedekleme Servis in log Application...
+Committing assembly 'D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe
+   logfile = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.InstallLog
+Installing assembly 'D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe
+   logfile = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.InstallLog
+Installing service Asyen Veritabani Yedekleme Servis...
+Service Asyen Veritabani Yedekleme Servis has been successfully installed.
+Creating EventLog source Asyen Veritabani Yedekleme Servis in log Application...
+Committing assembly 'D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe
+   logfile = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.InstallLog
+Installing assembly 'D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe
+   logfile = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.InstallLog
+Installing service Asyen Veritabani Yedekleme Servis...
+Service Asyen Veritabani Yedekleme Servis has been successfully installed.
+Creating EventLog source Asyen Veritabani Yedekleme Servis in log Application...
+Committing assembly 'D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe
+   logfile = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.InstallLog
+Installing assembly 'D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe
+   logfile = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.InstallLog
+Installing service Asyen Veritabani Yedekleme Servis...
+Service Asyen Veritabani Yedekleme Servis has been successfully installed.
+Creating EventLog source Asyen Veritabani Yedekleme Servis in log Application...
+Committing assembly 'D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe
+   logfile = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.InstallLog
+Installing assembly 'D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe
+   logfile = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.InstallLog
+Installing service Asyen Veritabani Yedekleme Servis...
+Service Asyen Veritabani Yedekleme Servis has been successfully installed.
+Creating EventLog source Asyen Veritabani Yedekleme Servis in log Application...
+Committing assembly 'D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe
+   logfile = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.InstallLog
+Installing assembly 'D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe
+   logfile = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.InstallLog
+Installing service Asyen Veritabani Yedekleme Servis...
+Service Asyen Veritabani Yedekleme Servis has been successfully installed.
+Creating EventLog source Asyen Veritabani Yedekleme Servis in log Application...
+Committing assembly 'D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe
+   logfile = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.InstallLog
+Installing assembly 'D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe
+   logfile = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.InstallLog
+Installing service Asyen Veritabani Yedekleme Servis...
+Service Asyen Veritabani Yedekleme Servis has been successfully installed.
+Creating EventLog source Asyen Veritabani Yedekleme Servis in log Application...
+Committing assembly 'D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe
+   logfile = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.InstallLog
+Installing assembly 'D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe
+   logfile = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.InstallLog
+Installing service Asyen Veritabani Yedekleme Servis...
+Service Asyen Veritabani Yedekleme Servis has been successfully installed.
+Creating EventLog source Asyen Veritabani Yedekleme Servis in log Application...
+Committing assembly 'D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe
+   logfile = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.InstallLog
+Installing assembly 'D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe
+   logfile = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.InstallLog
+Installing service Asyen Veritabani Yedekleme Servis...
+Service Asyen Veritabani Yedekleme Servis has been successfully installed.
+Creating EventLog source Asyen Veritabani Yedekleme Servis in log Application...
+Committing assembly 'D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe
+   logfile = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.InstallLog
+Installing assembly 'D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe
+   logfile = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.InstallLog
+Installing service Asyen Veritabani Yedekleme Servis...
+Service Asyen Veritabani Yedekleme Servis has been successfully installed.
+Creating EventLog source Asyen Veritabani Yedekleme Servis in log Application...
+Committing assembly 'D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe
+   logfile = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.InstallLog
+Installing assembly 'D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe
+   logfile = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.InstallLog
+Installing service Asyen Veritabani Yedekleme Servis...
+Service Asyen Veritabani Yedekleme Servis has been successfully installed.
+Creating EventLog source Asyen Veritabani Yedekleme Servis in log Application...
+Committing assembly 'D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe
+   logfile = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.InstallLog
+Installing assembly 'D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe
+   logfile = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.InstallLog
+Installing service Asyen Veritabani Yedekleme Servis...
+Service Asyen Veritabani Yedekleme Servis has been successfully installed.
+Creating EventLog source Asyen Veritabani Yedekleme Servis in log Application...
+Committing assembly 'D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.exe
+   logfile = D:\repos\AsyenOtomatikYedekleme\AsyenOtomatikYedekleme\bin\Debug\Servis\AsyenVeriTabaniYedeklemeServis.InstallLog

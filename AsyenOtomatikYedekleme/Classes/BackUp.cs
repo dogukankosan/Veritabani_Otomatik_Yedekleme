@@ -1,6 +1,7 @@
 ﻿using AsyenOtomatikYedekleme.Forms;
 using DevExpress.XtraEditors;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
@@ -13,101 +14,166 @@ namespace AsyenOtomatikYedekleme.Classes
     {
         public async Task BackupDatabasesToSqlServerAsync(Form main, DataTable databaseNames, string sqlServerConnectionString)
         {
-            DataTable dt = SQLLiteConnection.GetDataFromSQLite("SELECT BackUpFolder,WinrarFolder,WinrarPassword,BackUpDelete FROM DbBackUpSettings LIMIT 1");
-            if (dt.Rows.Count == 0)
-            {
-                XtraMessageBox.Show("Yedek Alma İşlemi Hatalı Lütfen Önce Yedek Alma Ayarlarınızı Giriniz", "Hatalı Yedek Alma", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                BackUpSettingsForms frm = new BackUpSettingsForms();
-                frm.ShowDialog();
-                return;
-            }
-            DataTable dt2 = SQLLiteConnection.GetDataFromSQLite("SELECT DbName FROM DbNameBackup");
-            if (dt2.Rows.Count == 0)
-            {
-                XtraMessageBox.Show("Yedek Alma İşlemi Hatalı Lütfen Önce Yedek Alınacak Veritabanlarını Kaydedin", "Hatalı Yedek Alma", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            main.Enabled = false;
+            List<string> successfulDbs = new List<string>();
+            List<string> failedDbs = new List<string>();
+            List<string> cancelledDbs = new List<string>();
+            DataTable settings;
             try
             {
-                if (!Directory.Exists(dt.Rows[0][0].ToString()))
-                    Directory.CreateDirectory(dt.Rows[0][0].ToString());
+                settings = await SQLiteHelper.GetDataTableAsync("SELECT BackUpFolder,WinrarFolder,WinrarPassword,BackUpDelete,CompanyName FROM DbBackUpSettings LIMIT 1");
+                if (settings.Rows.Count == 0)
+                {
+                    ShowSettingsMissingError();
+                    return;
+                }
+                DataTable dbList = await SQLiteHelper.GetDataTableAsync("SELECT DbName FROM DbNameBackup");
+                if (dbList.Rows.Count == 0)
+                {
+                    XtraMessageBox.Show("Yedeklenecek veritabanı listesi boş.", "Hatalı Yedek Alma", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
             }
             catch (Exception ex)
             {
-                XtraMessageBox.Show(ex.Message, "Hatalı Klasör Oluşturma İşlemi");
-                TextLog.TextLogging(ex.Message);
+                XtraMessageBox.Show("Yedekleme ayarları okunamadı: " + ex.Message);
+                TextLog.TextLogging("[Ayar Okuma Hatası] " + ex);
+                return;
+            }
+            main.Enabled = false;
+            string backupPath = settings.Rows[0]["BackUpFolder"].ToString();
+            string rarPath = settings.Rows[0]["WinrarFolder"].ToString();
+            string rarPassword = settings.Rows[0]["WinrarPassword"].ToString();
+            bool shouldDeleteOldRars = settings.Rows[0]["BackUpDelete"].ToString() == "1";
+            if (!EnsureBackupFolderExists(backupPath, main)) return;
+            SplashScreenLoading splashScreen = new SplashScreenLoading();
+            splashScreen.Show();
+            SqlConnection connection = null;
+            try
+            {
+                connection = new SqlConnection(sqlServerConnectionString);
+                await connection.OpenAsync();
+            }
+            catch (Exception ex)
+            {
+                XtraMessageBox.Show("Sunucuya bağlanılamadı:\n" + ex.Message, "Bağlantı Hatası", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TextLog.TextLogging("[SQL Bağlantı Hatası] " + ex);
+                splashScreen?.Close();
                 main.Enabled = true;
                 return;
             }
-            SplashScreenLoading splashScreen = new SplashScreenLoading();
-            splashScreen.Show();
-            using (SqlConnection connection = new SqlConnection(sqlServerConnectionString))
+            for (int i = 0; i < databaseNames.Rows.Count; i++)
             {
+                if (splashScreen.IScancel)
+                {
+                    for (int j = i; j < databaseNames.Rows.Count; j++)
+                    {
+                        string dbNameLeft = databaseNames.Rows[j][0]?.ToString();
+                        if (!string.IsNullOrWhiteSpace(dbNameLeft))
+                            cancelledDbs.Add(dbNameLeft);
+                    }
+                    splashScreen.Close();
+                    main.Enabled = true;
+                    XtraMessageBox.Show("Yedekleme işlemi iptal edildi.", "İptal", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    break;
+                }
+                string dbName = databaseNames.Rows[i][0]?.ToString();
+                string bakFile = Path.Combine(backupPath, $"{dbName}.bak");
+                string rarFile = Path.Combine(backupPath, $"{dbName}_{DateTime.Now:yyyyMMdd_HHmmss}.rar");
+                splashScreen.Invoke(new Action(() =>
+                {
+                    splashScreen.status = $"{dbName} yedekleniyor...";
+                }));
+                if (!await BackupDatabaseAsync(connection, dbName, bakFile))
+                {
+                    failedDbs.Add(dbName);
+                    continue;
+                }
+                splashScreen.Invoke(new Action(() =>
+                {
+                    splashScreen.status = $"{dbName} WinRAR ile sıkıştırılıyor...";
+                }));
+                bool statusWinrar = await Task.Run(() => WinrarManager.CompressAndEncrypt(bakFile, rarFile, rarPath, rarPassword));
+                if (statusWinrar)
+                    successfulDbs.Add(dbName);
+                else
+                    failedDbs.Add(dbName);
+                DeleteBakFiles(backupPath);
+            }
+            DeleteOldRarFiles(backupPath, shouldDeleteOldRars);
+            splashScreen.Close();
+            main.Enabled = true;
+            string resultMessage = $"✅ Başarılı Yedeklenen DB'ler:\n{string.Join("\n", successfulDbs)}";
+            if (failedDbs.Count > 0)
+                resultMessage += $"\n\n❌ Yedeklenemeyen DB'ler:\n{string.Join("\n", failedDbs)}";
+            if (cancelledDbs.Count > 0)
+                resultMessage += $"\n\n⛔ İptalden Sonra Atlanan DB'ler:\n{string.Join("\n", cancelledDbs)}";
+            XtraMessageBox.Show(resultMessage, "Yedekleme Sonucu", MessageBoxButtons.OK,
+                (failedDbs.Count > 0 || cancelledDbs.Count > 0) ? MessageBoxIcon.Warning : MessageBoxIcon.Information);
+        }
+        private void ShowSettingsMissingError()
+        {
+            XtraMessageBox.Show("Yedek Alma Ayarları Eksik. Lütfen ayarları tamamlayın.", "Hatalı Yedek Alma", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            new BackUpSettingsForms().ShowDialog();
+        }
+        private bool EnsureBackupFolderExists(string path, Form main)
+        {
+            try
+            {
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(path);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                XtraMessageBox.Show("Yedek klasörü oluşturulamadı: " + ex.Message);
+                TextLog.TextLogging("[Klasör Oluşturma Hatası] " + ex);
+                main.Enabled = true;
+                return false;
+            }
+        }
+        private async Task<bool> BackupDatabaseAsync(SqlConnection conn, string dbName, string filePath)
+        {
+            string query = $"BACKUP DATABASE [{dbName}] TO DISK = '{filePath}' WITH INIT";
+            using (SqlCommand cmd = new SqlCommand(query, conn))
+            {
+                cmd.CommandTimeout = 0;
                 try
                 {
-                    await connection.OpenAsync();
+                    await cmd.ExecuteNonQueryAsync();
+                    return true;
                 }
                 catch (Exception ex)
                 {
-                    XtraMessageBox.Show(ex.Message, "Yedek Alınacak Veri Tabanı Sunucusuna Bağlantı Yapılamadı", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    TextLog.TextLogging(ex.Message);
-                    main.Enabled = true;
-                    splashScreen.Close();
-                    return;
-                }
-                for (byte i = 0; i < databaseNames.Rows.Count; i++)
-                {
-                    string backupFilePath = Path.Combine(dt.Rows[0][0].ToString(), $"{databaseNames.Rows[i][0]}.bak");
-                    string backupQuery = $"BACKUP DATABASE [{databaseNames.Rows[i][0]}] TO DISK = '{backupFilePath}' WITH INIT";
-                    using (SqlCommand command = new SqlCommand(backupQuery, connection))
-                    {
-                        try
-                        {
-                            command.CommandTimeout = 0;
-                            splashScreen.status = string.Concat("Veritabanı Adı: ",databaseNames.Rows[i][0].ToString()," şuanda yedekleniyor...");
-                            await command.ExecuteNonQueryAsync();
-                            string rarFilePath = Path.Combine(dt.Rows[0][0].ToString(), $"{databaseNames.Rows[i][0]}_{DateTime.Now.ToString("yyyyMMdd_HHmmss")}.rar");
-                            splashScreen.status = string.Concat("Veritabanı Adı: ", databaseNames.Rows[i][0].ToString(), " şuanda winrarlanıyor...");
-                            await Task.Run(() => WinrarManager.CompressAndEncrypt(backupFilePath, rarFilePath, dt.Rows[0][1].ToString(), dt.Rows[0][2].ToString()));
-                        }
-                        catch (Exception ex)
-                        {
-                            XtraMessageBox.Show($"Yedek Alma İşlemi Hatalı '{databaseNames.Rows[i][0]}': {ex.Message}", ex.Message, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            TextLog.TextLogging(ex.Message);
-                            main.Enabled = true;
-                            splashScreen.Close();
-                            return;
-                        }
-                    }
-                    DeleteBak(dt.Rows[0][0].ToString());
+                    XtraMessageBox.Show($"{dbName} için yedekleme başarısız: {ex.Message}");
+                    TextLog.TextLogging($"[Backup Error - {dbName}] {ex}");
+                    return false;
                 }
             }
-            DeleteBakFiles(dt.Rows[0][0].ToString(), dt.Rows[0][3].ToString());
-            XtraMessageBox.Show("Yedek Alma İşlemi Başarılı", "Başarılı Yedek Alma", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            _ = EMailSenderManager.MailSend();
-            main.Enabled = true;
-            splashScreen.Close();
         }
-        private static void DeleteBak(string directoryPath)
+        private void DeleteBakFiles(string path)
         {
-            foreach (string filePath in Directory.GetFiles(directoryPath, "*.bak"))
-                File.Delete(filePath);
-        }
-        private static void DeleteBakFiles(string directoryPath, string status)
-        {
-            foreach (string filePath in Directory.GetFiles(directoryPath, "*.bak"))
-                File.Delete(filePath);
-            if (status == "1")
+            foreach (string bak in Directory.GetFiles(path, "*.bak"))
             {
-                foreach (string rarFilePath in Directory.GetFiles(directoryPath, "*.rar"))
+                try { File.Delete(bak); } catch (Exception ex) { TextLog.TextLogging("[BAK Delete] " + ex); }
+            }
+        }
+        private void DeleteOldRarFiles(string path, bool delete)
+        {
+            if (!delete) return;
+             try
+            {
+                foreach (string rarFile in Directory.GetFiles(path, "*.rar"))
                 {
-                    FileInfo fileInfo = new FileInfo(rarFilePath);
-                    if (fileInfo.CreationTime.Date < DateTime.Now.Date)
+                    FileInfo info = new FileInfo(rarFile);
+                    if (info.LastWriteTime.Date < DateTime.Now.Date)
                     {
-                        File.Delete(rarFilePath);
+                        try { File.Delete(rarFile); } catch (Exception ex) { TextLog.TextLogging($"[RAR Silme Hatası] {ex}"); }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                TextLog.TextLogging($"[DeleteOldRarFiles] {ex}");
             }
         }
     }
